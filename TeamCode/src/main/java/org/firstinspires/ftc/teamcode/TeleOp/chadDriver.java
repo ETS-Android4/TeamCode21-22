@@ -18,17 +18,9 @@ public class chadDriver extends OpMode{
         // Routines separated into separate functions
         updateDriver();
         updateCodriver();
-        feedback(telemetry);
+        //feedback(telemetry);
     }
 
-    public void feedback(Telemetry telemetry) {
-        // Print out the color sensor RGB values
-        telemetry.addData("Right R", robot.rightColor.red());
-        telemetry.addData("Right G", robot.rightColor.green());
-        telemetry.addData("Right B", robot.rightColor.blue());
-        // Print out the distance from the right sensor in CM
-        //telemetry.addData("Right Distance (cm)", this.getDistance(DistanceUnit.CM));
-    }
 
     /**
      * Process gamepad1 (driver) controls

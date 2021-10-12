@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "MechDrive")
-public class MechDrive extends OpMode {
+public class drive extends OpMode {
 
     //Speed the robot will always go (unless set to slow)
     final double speed = .7;

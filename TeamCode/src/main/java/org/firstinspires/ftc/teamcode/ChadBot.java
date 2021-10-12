@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaNavigation;
-import org.firstinspires.ftc.teamcode.ColorRangeSensor;
+import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaFieldNavigation;
+//import org.firstinspires.ftc.teamcode.ColorRangeSensor;
 
 public class ChadBot {
     private DcMotor frontLeft;
@@ -18,7 +18,7 @@ public class ChadBot {
     private DcMotor backLeft;
     private DcMotor backRight;
 
-    private ConceptVuforiaNavigation phone;
+    private ConceptVuforiaFieldNavigation phone;
 
     public void init(HardwareMap map) {
         // Initialize & configure drive motors
