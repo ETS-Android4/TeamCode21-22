@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "TankDrive")
-public class TankDrive extends OpMode {
+public class SlowDrive extends OpMode {
     DcMotor left;
     DcMotor right;
 

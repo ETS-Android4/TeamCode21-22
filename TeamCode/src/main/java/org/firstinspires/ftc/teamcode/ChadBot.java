@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaNavigation;
+import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaFieldNavigationWebcam;
 import org.firstinspires.ftc.teamcode.ColorRangeSensor;
 
 public class ChadBot {
@@ -30,7 +30,7 @@ public class ChadBot {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        phone= new ConceptVuforiaNavigation();
+        phone= new ConceptVuforiaFieldNavigationWebcam();
 
     }
 
