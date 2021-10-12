@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaNavigation;
 import org.firstinspires.ftc.teamcode.ColorRangeSensor;
 
-public class RobotBrian {
+public class ChadBot {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
