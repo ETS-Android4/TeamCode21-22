@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaFieldNavigation;
+import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaFieldNavigationWebcam;
 //import org.firstinspires.ftc.teamcode.ColorRangeSensor;
 
 public class ChadBot {
@@ -18,7 +19,7 @@ public class ChadBot {
     private DcMotor backLeft;
     private DcMotor backRight;
 
-    private ConceptVuforiaFieldNavigation phone;
+    private ConceptVuforiaFieldNavigationWebcam phone;
 
     public void init(HardwareMap map) {
         // Initialize & configure drive motors
@@ -30,7 +31,7 @@ public class ChadBot {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        phone= new ConceptVuforiaNavigation();
+        phone= new ConceptVuforiaFieldNavigationWebcam();
 
     }
 
@@ -85,9 +86,9 @@ public class ChadBot {
         backRight.setPower(bR*speed*-1);
     }
 
-    public void stoppell(){
-        impell.setPower(0);
-    }
+    //public void stoppell(){
+    //    impell.setPower(0);
+    //}
 
     public void forward(double speed){
         drive(1, 1, 1, 1, speed);

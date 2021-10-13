@@ -47,7 +47,7 @@ public class RobotBrian {
         foundationMoverRight = map.servo.get("foundation");
         //foundationMoverLeft = map.servo.get("foundation_left");
         //grabber = map.servo.get("grabber");
-        phone= new ConceptVuforiaNavigation();
+        //phone= new ConceptVuforiaNavigation();
         //wobble = map.servo.get("wobble");
 
 
@@ -207,13 +207,13 @@ public class RobotBrian {
         //grabber.setPosition(1);
     }
 
-    public boolean rightIsBlack(){
-        return rightColor.isBlack();
-    }
+  //  public boolean rightIsBlack(){
+        //return rightColor.isBlack();
+  //  }
 
-    public boolean leftIsBlack(){
-        return leftColor.isBlack();
-    }
+   // public boolean leftIsBlack(){
+   //     return leftColor.isBlack();
+   // }
 
    /* public void open() {
         wobble.setPosition(1);
