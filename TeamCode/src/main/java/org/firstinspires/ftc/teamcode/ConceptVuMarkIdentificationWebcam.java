@@ -72,7 +72,7 @@ public class ConceptVuMarkIdentificationWebcam extends LinearOpMode {
 
     public static final String TAG = "Vuforia VuMark Sample";
 
-    OpenGLMatrix lastLocation = null;
+    OpenGLMatrix lastLocatiofn = null;
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
