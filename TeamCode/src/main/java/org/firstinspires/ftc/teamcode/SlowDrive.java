@@ -43,13 +43,5 @@ public class SlowDrive extends OpMode {
             left.setPower(0);
             right.setPower(0);
         }
-
-
-
-
-        //debug
-        telemetry.addData("left encoder",left.getCurrentPosition());
-        telemetry.addData("right encoder",right.getCurrentPosition());
-
     }
 }

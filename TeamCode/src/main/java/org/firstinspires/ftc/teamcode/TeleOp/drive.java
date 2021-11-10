@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@TeleOp(name = "MechDrive")
+@TeleOp(name = "drive")
 public class drive extends OpMode {
 
     //Speed the robot will always go (unless set to slow)

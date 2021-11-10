@@ -98,13 +98,13 @@ public class ChadBot {
         drive(-1,-1,-1,  -1,speed);
     }
 
-    public void left(double speed){
+    /*public void left(double speed){
         drive(-1, 1, .9, -.9, speed);
-    }
+    }*/
 
-    public void right(double speed){
+    /*public void right(double speed){
        drive(1, -1, -.9, .9, speed);
-    }
+    }*/
 
     public void spinleft(){
         drive(-1, 1, -1, 1, 1);
