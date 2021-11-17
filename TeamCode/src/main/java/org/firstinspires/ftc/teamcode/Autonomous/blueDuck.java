@@ -120,45 +120,27 @@ public class blueDuck extends LinearOpMode {
         {
 
             case 0:
-                if (tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
-
-                    }
-                }
-
-               /* if(TFObjectDetector != null){
-                    List<Recognition> updatedRecognitions = TFObjectDetector.getUpdatedRecognitions();
-                    if(updatedRecognitions != null){
-                        if(updatedRecognitions.size() > 0){
-                            //we found rings
-                            Recognition stack = updatedRecognitions.get(0);
-                            String label = stack.getLabel();
-                            if(label.equals(LABEL_FIRST_ELEMENT)) {
-                                //4rings(square C) on field
-                                state = 102; //
+                    if(tfod != null){
+                        List<Recognition> updatedRecognitions = TFObjectDetector.getUpdatedRecognitions();
+                        if(updatedRecognitions != null) {
+                            if (updatedRecognitions.getleft() < 240) {//left postion
                                 next();
                             }
-                            else if(label.equals(LABEL_SECOND_ELEMENT)){
-                                    //1 ring (square B)
-                                state = 202;
+                            else if(updatedRecognitions.getright() >= 240){//right position
+                                state = 200;
                                 next();
-                                
-
                             }
-                        }else {
-                        //we found no rings (square A) on field
-                            next();
-                    }
-
-                    }
+                            else //middle position
+                                state = 100;
+                                next();
+                            }
+                        }
                 }
                 break;
 */
+                //starts of left movements
             case 1: // square A
-                robot.right(speed);
+                robot.left(speed);
                 if(timer.seconds()>1)
                     next();
                 break;
@@ -166,7 +148,7 @@ public class blueDuck extends LinearOpMode {
             case 2:
 
                 robot.forward(speed);
-                if(timer.seconds()>2.75)
+                if(timer.seconds()>1)
                     next();
                 break;
 
@@ -179,39 +161,49 @@ public class blueDuck extends LinearOpMode {
 
 
 
-            case 103://square c
-                robot.right(speed);
+                // start of middle movemnets
+            case 100://square c
+                robot.foward(speed);
                 if(timer.seconds()>1)
                     next();
                 break;
 
-            case 104:
-                robot.forward(speed);
-                if(timer.seconds()>5)
+            case 101:
+                robot.leftspin(speed);
+                if(timer.seconds()>1)
                     next();
                 break;
 
-            case 105:
+            case 102:
                 //park on white tape
-                robot.backward(speed);
+                robot.stop(speed);
                 if(timer.seconds()>1.8)
                     next();
                 break;
 
 
 
-            case 203://square b
-                robot.forward(speed);
-                if(timer.seconds()>3.5)
+
+                //start of right movements
+            case 200://square b
+                robot.right(speed);
+                if(timer.seconds()>1)
                 next();
                 break;
 
-            case 204:
+            case 201:
                 // drop the thing in box using servo
-                robot.backward(speed);
-                if(timer.seconds()>.8)
+                robot.foward(speed);
+                if(timer.seconds()>1)
                     next();
                 break;
+
+                case 202:
+               //park on white tape
+                robot.stop(speed);
+                if(timer.seconds()>1.8)
+                    next();
+                 break;
         }
     }
 }
