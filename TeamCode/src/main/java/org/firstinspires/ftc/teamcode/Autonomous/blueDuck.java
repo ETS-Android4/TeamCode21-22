@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -44,7 +44,7 @@ import java.util.List;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 @Autonomous(name = "blueDuck")
-public class blueDuck extends LinearOpMode {
+public class blueDuck extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
@@ -58,6 +58,24 @@ public class blueDuck extends LinearOpMode {
                     "4k0o8phhbR+Ca9B6dtoeNaYITGHvMmOkBLsyAnR/RQ4Xv8KpvSaSfk0PDyzCG7UsN49k055xOx" +
                     "kFI0iKYp7NMCDF+cezE80dkcnpZCzg1RpGuSpCKGuUbSkJp+q5qudl2qZfWnQntaNI0vlNKD2x1C";
 
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
+    private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
+    private static final String[] LABELS = {
+            "Ball",
+            "Cube",
+            "Duck",
+            "Marker",
+    };
+    private VuforiaLocalizer vuforia;
+
+    /**
+     * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
+     * Detection engine.
+     */
+    private TFObjectDetector tfod;
     public static final String TAG = "Vuforia VuMark Sample";
 
     private void initVuforia() {
@@ -95,7 +113,7 @@ public class blueDuck extends LinearOpMode {
         initTfod();
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(2.5, 16.0/9.0);
+            tfod.setZoom(2.5, 16.0 / 9.0);//change
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
         }
@@ -116,94 +134,90 @@ public class blueDuck extends LinearOpMode {
 
     @Override
     public void loop() {
-        switch(state)
-        {
+        switch (state) {
 
             case 0:
-                    if(tfod != null){
-                        List<Recognition> updatedRecognitions = TFObjectDetector.getUpdatedRecognitions();
-                        if(updatedRecognitions != null) {
-                            if (updatedRecognitions.getleft() < 240) {//left postion
-                                next();
-                            }
-                            else if(updatedRecognitions.getright() >= 240){//right position
-                                state = 200;
-                                next();
-                            }
-                            else //middle position
-                                state = 100;
-                                next();
-                            }
-                        }
+                //if(tfod != null){
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                if (updatedRecognitions != null) {
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLeft() <= 240) {//left postion
+                            next();
+                        } else if (recognition.getLeft() >= 270) {//right position
+                            state = 200;
+                            next();
+                        } else //middle position
+                            state = 100;
+                        next();
+                    }
                 }
+                // }
+
                 break;
-*/
-                //starts of left movements
-            case 1: // square A
-                robot.left(speed);
-                if(timer.seconds()>1)
+
+            //starts of left movements
+            case 1:
+                robot.forward(speed);
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 2:
 
-                robot.forward(speed);
-                if(timer.seconds()>1)
+                robot.spinleft();
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 3:
-                // drop the thing in box using servo
                 robot.stop();
-                if(timer.seconds()>3)
+                if (timer.seconds() > 3)
                     next();
                 break;
 
 
-
-                // start of middle movemnets
-            case 100://square c
-                robot.foward(speed);
-                if(timer.seconds()>1)
+            // start of middle movemnets
+            case 100:
+                robot.forward(speed);
+                if (timer.seconds() > 2)
                     next();
                 break;
 
             case 101:
-                robot.leftspin(speed);
-                if(timer.seconds()>1)
+                robot.forward(speed);
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 102:
                 //park on white tape
-                robot.stop(speed);
-                if(timer.seconds()>1.8)
+                robot.stop();
+                if (timer.seconds() > 1.8)
                     next();
                 break;
 
 
-
-
-                //start of right movements
-            case 200://square b
-                robot.right(speed);
-                if(timer.seconds()>1)
-                next();
+            //start of right movements
+            case 200:
+                robot.forward(speed);
+                if (timer.seconds() > 1)
+                    next();
                 break;
 
             case 201:
                 // drop the thing in box using servo
-                robot.foward(speed);
-                if(timer.seconds()>1)
+                robot.spinright();
+                if (timer.seconds() > 1)
                     next();
                 break;
 
-                case 202:
-               //park on white tape
-                robot.stop(speed);
-                if(timer.seconds()>1.8)
+            case 202:
+                //park on white tape
+                robot.stop();
+                if (timer.seconds() > 3)
                     next();
-                 break;
+                break;
         }
     }
 }
+
