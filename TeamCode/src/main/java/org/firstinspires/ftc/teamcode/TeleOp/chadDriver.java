@@ -37,9 +37,9 @@ public class chadDriver extends OpMode{
 
         // direction controls
         if (gamepad1.dpad_up) robot.forward(speed*.5);
-        else if (gamepad1.dpad_right) robot.right(speed*.5);
+       // else if (gamepad1.dpad_right) robot.right(speed*.5);
         else if (gamepad1.dpad_down) robot.backward(speed*.5);
-        else if (gamepad1.dpad_left) robot.left(speed*.5);
+        //else if (gamepad1.dpad_left) robot.left(speed*.5);
         else if (gamepad1.left_stick_y != 0 || gamepad1.left_stick_x != 0) {
             if (Math.abs(gamepad1.left_stick_y) > Math.abs(gamepad1.left_stick_x)) {
                 if (gamepad1.left_stick_y > 0.1) {
@@ -51,10 +51,10 @@ public class chadDriver extends OpMode{
                 }
             } else if (gamepad1.left_stick_x > -0.1) {
                 //right
-                robot.right(speed);
+             //   robot.right(speed);
             } else {
                 //left
-                robot.left(speed);
+              //  robot.left(speed);
             }
         }
         else {

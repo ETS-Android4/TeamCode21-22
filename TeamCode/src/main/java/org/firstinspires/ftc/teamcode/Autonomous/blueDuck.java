@@ -113,7 +113,7 @@ public class blueDuck extends OpMode {
         initTfod();
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(2.5, 16.0 / 9.0);//change
+            tfod.setZoom(1.25, 8.0 / 4.5);//change
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
         }
@@ -137,87 +137,116 @@ public class blueDuck extends OpMode {
         switch (state) {
 
             case 0:
-                //if(tfod != null){
-                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                if (updatedRecognitions != null) {
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getLeft() <= 240) {//left postion
-                            next();
-                        } else if (recognition.getLeft() >= 270) {//right position
-                            state = 200;
-                            next();
-                        } else //middle position
-                            state = 100;
-                        next();
-                    }
-                }
-                // }
-
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.update();
+                robot.stop();
+                if (timer.seconds() > 0)
+                    next();
                 break;
 
-            //starts of left movements
+
             case 1:
-                robot.forward(speed);
-                if (timer.seconds() > 1)
-                    next();
-                break;
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.update();
+                //if(tfod != null){
+                int i=0;
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
 
-            case 2:
+                        for (Recognition recognition : updatedRecognitions) {
+                            telemetry.addData("# Object Detected", updatedRecognitions.size());
+                            // step through the list of recognitions and display boundary info.
 
-                robot.spinleft();
-                if (timer.seconds() > 1)
-                    next();
-                break;
+                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                    recognition.getLeft(), recognition.getTop());
+                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                    recognition.getRight(), recognition.getBottom());
+                            i++;
+                            telemetry.update();
+                            if (recognition.getLeft() <= 440) {//left postion
+                                next();
+                            } else if (recognition.getRight() >= 470) {//right position
+                                state = 200;
+                                next();
+                            } else {//middle position
+                                state = 100;
+                                next();
+                            }
+                        }
+                    }
+                    // }
 
-            case 3:
-                robot.stop();
-                if (timer.seconds() > 3)
-                    next();
-                break;
+                    break;
+
+                    //starts of left movements
+                    case 2:
+                        telemetry.addData(String.format("State (%d)", state), state);
+                        telemetry.update();
+                        robot.forward(speed);
+                        if (timer.seconds() > 1)
+                            next();
+                        break;
+
+                    case 3:
+
+                        robot.spinleft();
+                        if (timer.seconds() > 1)
+                            next();
+                        break;
+
+                    case 4:
+                        robot.stop();
+                        if (timer.seconds() > 3)
+                            next();
+                        break;
 
 
-            // start of middle movemnets
-            case 100:
-                robot.forward(speed);
-                if (timer.seconds() > 2)
-                    next();
-                break;
+                    // start of middle movemnets
+                    case 100:
+                        robot.forward(speed);
+                        if (timer.seconds() > 2)
+                            next();
+                        break;
 
-            case 101:
-                robot.forward(speed);
-                if (timer.seconds() > 1)
-                    next();
-                break;
+                    case 101:
+                        telemetry.addData(String.format("State (%d)", state), state);
+                        telemetry.update();
+                        robot.forward(speed);
+                        if (timer.seconds() > 3)
+                            next();
+                        break;
 
-            case 102:
-                //park on white tape
-                robot.stop();
-                if (timer.seconds() > 1.8)
-                    next();
-                break;
+                    case 102:
+                        //park on white tape
+                        robot.stop();
+                        if (timer.seconds() > 1.8)
+                            next();
+                        break;
 
 
-            //start of right movements
-            case 200:
-                robot.forward(speed);
-                if (timer.seconds() > 1)
-                    next();
-                break;
+                    //start of right movements
+                    case 200:
+                        robot.forward(speed);
+                        if (timer.seconds() > 1)
+                            next();
+                        break;
 
-            case 201:
-                // drop the thing in box using servo
-                robot.spinright();
-                if (timer.seconds() > 1)
-                    next();
-                break;
+                    case 201:
+                        telemetry.addData(String.format("State (%d)", state), state);
+                        telemetry.update();
+                        // drop the thing in box using servo
+                        robot.spinright();
+                        if (timer.seconds() > 1)
+                            next();
+                        break;
 
-            case 202:
-                //park on white tape
-                robot.stop();
-                if (timer.seconds() > 3)
-                    next();
-                break;
+                    case 202:
+                        //park on white tape
+                        robot.stop();
+                        if (timer.seconds() > 3)
+                            next();
+                        break;
+                }
         }
     }
-}
-
