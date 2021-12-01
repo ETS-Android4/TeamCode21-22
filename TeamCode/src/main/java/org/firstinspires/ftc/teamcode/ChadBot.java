@@ -19,6 +19,10 @@ public class ChadBot {
     private DcMotor backLeft;
     private DcMotor backRight;
 
+    private DcMotor intake;
+    private DcMotor outake;
+    private DcMotor duckyygoturnturn;
+
     private ConceptVuforiaFieldNavigationWebcam phone;
 
     public void init(HardwareMap map) {
@@ -114,5 +118,38 @@ public class ChadBot {
         drive(1, -1, 1, -1, 1);
     }
 
+    public void dumpy(){
+        intake.setPower(1);
+        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//????maybe????
+        intake.setTargetPosition(1);
+    }
+
+    public void undumpy(){
+        intake.setPower(1);
+        intake.setTargetPosition(3);
+    }
+
+    public void liftBot(){ //bottom layer
+        outake.setPower(1);
+        outake.setTargetPosition(0);
+    }
+
+    public void liftMid(){ //middle layer
+        outake.setPower(1);
+        outake.setTargetPosition(2);
+    }
+
+    public void liftTop(){ //top layer
+        outake.setPower(1);
+        outake.setTargetPosition(4);
+    }
+
+    public void duckkyturningwheeelthing(){
+        duckyygoturnturn.setPower(1);
+    }
+
+    public void STOPduckkyturningwheeelthing(){
+        duckyygoturnturn.setPower(0);
+    }
 
 }

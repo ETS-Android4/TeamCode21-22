@@ -70,13 +70,16 @@ public class chadDriver extends OpMode{
         }
 
         if (gamepad1.a){
-
+            robot.dumpy();
         }
         if(gamepad1.b){
-
+            robot.undumpy();
         }
         if (gamepad1.y){
-
+            robot.duckkyturningwheeelthing();
+        }
+        if(gamepad1.x){
+            robot.STOPduckkyturningwheeelthing();
         }
 
     }
@@ -95,10 +98,13 @@ public class chadDriver extends OpMode{
         }
 
         if(gamepad2.a){
-
+            robot.liftBot();
         }
-        else if (gamepad2.b){
-
+        if (gamepad2.b){
+            robot.liftMid();
+        }
+        if(gamepad2.y){
+            robot.liftTop();
         }
 
         if (gamepad2.dpad_up){
