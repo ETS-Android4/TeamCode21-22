@@ -43,8 +43,8 @@ import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
-@Autonomous(name = "blueDuck")
-public class blueDuck extends OpMode {
+@Autonomous(name = "blueWarehouse")
+public class blueWarehouse extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
@@ -155,36 +155,35 @@ public class blueDuck extends OpMode {
                 //if(tfod != null){
                 int i=0;
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
+                if (updatedRecognitions != null) {
 
-                        for (Recognition recognition : updatedRecognitions) {
-                            telemetry.addData("# Object Detected", updatedRecognitions.size());
-                            // step through the list of recognitions and display boundary info.
+                    for (Recognition recognition : updatedRecognitions) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        // step through the list of recognitions and display boundary info.
 
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                    recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
-                            i++;
-                            telemetry.update();
-                            if (recognition.getLeft() <= 440) {//left postion
-                                inttterState = 9;
-                                next();
-                            } else if (recognition.getRight() >= 470) {//right position
-                                inttterState = 200;
-                                next();
-                            } else {//middle position
-                                inttterState = 100;
-                                next();
-                            }
+                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+                        i++;
+                        telemetry.update();
+                        if (recognition.getLeft() <= 440) {//left postion
+                            inttterState = 9;
+                            next();
+                        } else if (recognition.getRight() >= 470) {//right position
+                            inttterState = 200;
+                            next();
+                        } else {//middle position
+                            inttterState = 100;
+                            next();
                         }
                     }
-                    // }
+                }
+                // }
 
-                    break;
+                break;
 
-                    //starts of left movements
             case 2:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.update();
@@ -193,143 +192,128 @@ public class blueDuck extends OpMode {
                     next();
                 break;
 
-            case 4:
-                robot.spinright();
+            case 3:
+                robot.spinleft();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
-            case 5:
-                robot.forward(speed);
+            case 4:
+                robot.backward(speed);
                 if (timer.seconds() > 3)
                     next();
                 break;
 
-            case 6:
-                robot.duckkyturningwheeelthing();
-                if (timer.seconds() > 3) {
-                    robot.STOPduckkyturningwheeelthing();
+            case 5:
+                robot.spinleft();
+                if (timer.seconds() > ninety) {
                     next();
                 }
                 break;
 
-            case 7:
+            case 6:
                 robot.backward(speed);
-                if (timer.seconds() > 5)
-                    next();
-                break;
-
-            case 8:
-                robot.spinright();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > 1)
                     state=inttterState;
                 break;
-                //end of all positions
+            //end of all positions
 
-                case 9://start of left position
-                    robot.backward(speed);
-                    if (timer.seconds() > 1)
-                        next();
-                    break;
-
-            case 3:
+            //start of left position
+            case 7:
                 robot.liftBot();
                 if (timer.seconds() > .5)
                     next();
                 break;
 
-            case 10:
+            case 8:
                 robot.dumpy();
                 if(timer.seconds() > 1)
                     next();
                 break;
 
-            case 11:
+            case 9:
                 robot.undumpy();
                 if(timer.seconds() > 1)
                     next();
                 break;
 
-            case 12:
+            case 10:
                 robot.forward(speed);
                 if(timer.seconds() > 1)
                     next();
                 break;
 
-            case 13:
+            case 11:
                 robot.spinright();
                 if(timer.seconds() > ninety)
                     next();
                 break;
 
-            case 14:
+            case 12:
                 robot.forward(speed);
                 if(timer.seconds() > 8.2)
                     next();
                 break;
 
             // start of middle movemnets
+
             case 100:
-                robot.backward(speed);
+                robot.liftMid();
                 if (timer.seconds() > 1)
                     next();
                 break;
 
             case 101:
-                robot.liftMid();// function name: uppiesMidddiess
-                if (timer.seconds() > 1)
+                robot.dumpy();
+                if(timer.seconds() > 1)
                     next();
                 break;
 
             case 102:
-                robot.dumpy();
+                robot.undumpy();
                 if(timer.seconds() > 1)
                     next();
-                 break;
+                break;
 
             case 103:
-                 robot.undumpy();
-                 if(timer.seconds() > 1)
-                    next();
-                 break;
-
-            case 104:
                 robot.forward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
 
 
-            case 105:
+            case 104:
                 robot.spinright();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
-            case 106:
+            case 105:
                 robot.forward(speed);
                 if(timer.seconds() > 8.2)
                     next();
                 break;
-                //end of position middle
+            //end of position middle
 
 
             //start of right movements
             case 200:
-                robot.backward(speed);
-                if (timer.seconds() > 1)
-                    next();
-                break;
-
-            case 201:
                 robot.liftTop();
                 if (timer.seconds() > 1)
                     next();
                 break;
 
-            case 202:
+            case 201:
                 //park on white tape
                 robot.dumpy();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+
+            case 202:
+                //park on white tape
+                robot.undumpy();
                 if (timer.seconds() > 1)
                     next();
                 break;
@@ -337,7 +321,7 @@ public class blueDuck extends OpMode {
 
             case 203:
                 //park on white tape
-                robot.undumpy();
+                robot.forward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
@@ -345,25 +329,17 @@ public class blueDuck extends OpMode {
 
             case 204:
                 //park on white tape
-                robot.forward(speed);
-                if (timer.seconds() > 1)
-                    next();
-                break;
-
-
-            case 205:
-                //park on white tape
                 robot.spinright();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
-            case 206:
+            case 205:
                 robot.forward(speed);
                 if(timer.seconds() > 8.2)
                     next();
                 break;
             //end of right position
-                }
         }
     }
+}

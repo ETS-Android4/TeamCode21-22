@@ -126,6 +126,7 @@ public class ChadBot {
 
     public void undumpy(){
         intake.setPower(1);
+        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intake.setTargetPosition(3);
     }
 

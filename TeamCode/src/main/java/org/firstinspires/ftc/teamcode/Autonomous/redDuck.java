@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,41 +9,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.ChadBot;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-
-
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import java.util.List;
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-@Autonomous(name = "blueDuck")
-public class blueDuck extends OpMode {
+@Autonomous(name = "redDuck")
+public class redDuck extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
@@ -152,7 +121,6 @@ public class blueDuck extends OpMode {
             case 1:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.update();
-                //if(tfod != null){
                 int i=0;
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
@@ -180,7 +148,6 @@ public class blueDuck extends OpMode {
                             }
                         }
                     }
-                    // }
 
                     break;
 
@@ -193,15 +160,22 @@ public class blueDuck extends OpMode {
                     next();
                 break;
 
-            case 4:
-                robot.spinright();
+
+            case 3:
+                robot.spinleft();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
-            case 5:
+            case 4:
                 robot.forward(speed);
                 if (timer.seconds() > 3)
+                    next();
+                break;
+
+            case 5:
+                robot.spinleft();
+                if (timer.seconds() > .5)
                     next();
                 break;
 
@@ -214,61 +188,69 @@ public class blueDuck extends OpMode {
                 break;
 
             case 7:
-                robot.backward(speed);
-                if (timer.seconds() > 5)
+                robot.spinright();
+                if (timer.seconds() > .5)
                     next();
                 break;
 
             case 8:
-                robot.spinright();
+                robot.backward(speed);
+                if (timer.seconds() > .5)
+                    next();
+                break;
+
+            case 9:
+                robot.spinleft();
                 if (timer.seconds() > ninety)
                     state=inttterState;
                 break;
                 //end of all positions
 
-                case 9://start of left position
-                    robot.backward(speed);
-                    if (timer.seconds() > 1)
-                        next();
-                    break;
-
-            case 3:
-                robot.liftBot();
-                if (timer.seconds() > .5)
-                    next();
-                break;
-
-            case 10:
-                robot.dumpy();
-                if(timer.seconds() > 1)
+            case 10://start of left position
+                robot.backward(speed);
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 11:
-                robot.undumpy();
+                robot.liftBot();
                 if(timer.seconds() > 1)
                     next();
                 break;
 
             case 12:
-                robot.forward(speed);
+                robot.dumpy();
                 if(timer.seconds() > 1)
                     next();
                 break;
 
+
+
             case 13:
-                robot.spinright();
-                if(timer.seconds() > ninety)
+                robot.undumpy();
+                if(timer.seconds() > 1)
                     next();
                 break;
 
             case 14:
                 robot.forward(speed);
+                if(timer.seconds() > 1)
+                    next();
+                break;
+
+            case 15:
+                robot.spinleft();
+                if(timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 16:
+                robot.forward(speed);
                 if(timer.seconds() > 8.2)
                     next();
                 break;
 
-            // start of middle movemnets
+            // start of middle movements
             case 100:
                 robot.backward(speed);
                 if (timer.seconds() > 1)
@@ -276,7 +258,7 @@ public class blueDuck extends OpMode {
                 break;
 
             case 101:
-                robot.liftMid();// function name: uppiesMidddiess
+                robot.liftMid();// set position to middle level
                 if (timer.seconds() > 1)
                     next();
                 break;
@@ -285,13 +267,13 @@ public class blueDuck extends OpMode {
                 robot.dumpy();
                 if(timer.seconds() > 1)
                     next();
-                 break;
+                break;
 
             case 103:
-                 robot.undumpy();
-                 if(timer.seconds() > 1)
+                robot.undumpy();
+                if(timer.seconds() > 1)
                     next();
-                 break;
+                break;
 
             case 104:
                 robot.forward(speed);
@@ -299,9 +281,8 @@ public class blueDuck extends OpMode {
                     next();
                 break;
 
-
             case 105:
-                robot.spinright();
+                robot.spinleft();
                 if (timer.seconds() > ninety)
                     next();
                 break;
@@ -334,7 +315,6 @@ public class blueDuck extends OpMode {
                     next();
                 break;
 
-
             case 203:
                 //park on white tape
                 robot.undumpy();
@@ -342,14 +322,12 @@ public class blueDuck extends OpMode {
                     next();
                 break;
 
-
             case 204:
                 //park on white tape
                 robot.forward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
-
 
             case 205:
                 //park on white tape
