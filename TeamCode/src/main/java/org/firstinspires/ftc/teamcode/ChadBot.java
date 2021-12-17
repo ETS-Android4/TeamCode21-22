@@ -14,26 +14,31 @@ import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaFiel
 //import org.firstinspires.ftc.teamcode.ColorRangeSensor;
 
 public class ChadBot {
-    private DcMotor frontLeft;
-    private DcMotor frontRight;
-    private DcMotor backLeft;
-    private DcMotor backRight;
+    //private DcMotor frontLeft;
+    //private DcMotor frontRight;
+    private DcMotor backLeft;//left
+    private DcMotor backRight;//right
 
     private DcMotor intake;
-    private DcMotor outake;
-    private DcMotor duckyygoturnturn;
+    private DcMotor elevator;
+    //private DcMotor duckyygoturnturn;
+    private DcMotor dumper;
 
     private ConceptVuforiaFieldNavigationWebcam phone;
 
     public void init(HardwareMap map) {
         // Initialize & configure drive motors
-        frontLeft = map.dcMotor.get("frontLeft");
-        frontRight = map.dcMotor.get("frontRight");
+        //frontLeft = map.dcMotor.get("frontLeft");
+        //frontRight = map.dcMotor.get("frontRight");
         backLeft = map.dcMotor.get("backLeft");
         backRight = map.dcMotor.get("backRight");
+        intake = map.dcMotor.get("intake");
+        elevator = map.dcMotor.get("elevator");
+        //duckyygoturnturn = map.dcMotor.get("duck");
+        dumper = map.dcMotor.get("dumper");
 
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        //frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         phone= new ConceptVuforiaFieldNavigationWebcam();
 
@@ -44,8 +49,8 @@ public class ChadBot {
      */
 
     public void stop() {
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
+        //frontLeft.setPower(0);
+        //frontRight.setPower(0);
         backRight.setPower(0);
         backLeft.setPower(0);
     }
@@ -59,15 +64,15 @@ public class ChadBot {
     public void setEncoders(boolean enabled) {
         if(enabled)
         {
-            frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         else
         {
-            frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            //frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            //frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
@@ -76,16 +81,16 @@ public class ChadBot {
 
     /**
      *
-     * @param fL
-     * @param fR
+     *
+     *
      * @param bL
      * @param bR
      * @param speed
      */
 
-    public void drive(double fL, double fR, double bL,double bR, double speed) {
-        frontLeft.setPower(fL*speed);
-        frontRight.setPower(fR*speed);
+    public void drive(double bL,double bR, double speed) {
+        //frontLeft.setPower(fL*speed);
+        //frontRight.setPower(fR*speed);
         backLeft.setPower(bL*speed*-1);
         backRight.setPower(bR*speed*-1);
     }
@@ -95,11 +100,11 @@ public class ChadBot {
     //}
 
     public void forward(double speed){
-        drive(1, 1, 1, 1, speed);
+        drive(1, 1, speed);
     }
 
     public void backward(double speed){
-        drive(-1,-1,-1,  -1,speed);
+        drive(-1,  -1,speed);
     }
 
     /*public void left(double speed){
@@ -111,46 +116,65 @@ public class ChadBot {
     }*/
 
     public void spinleft(){
-        drive(-1, 1, -1, 1, 1);
+        drive(-1, 1, 1);
     }
 
     public void spinright(){
-        drive(1, -1, 1, -1, 1);
+        drive(1, -1, 1);
     }
 
     public void dumpy(){
-        intake.setPower(1);
-        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//????maybe????
-        intake.setTargetPosition(1);
+        dumper.setPower(.9);
+       // dumper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // dumper.setTargetPosition(1);
     }
 
     public void undumpy(){
-        intake.setPower(1);
-        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intake.setTargetPosition(3);
+        dumper.setPower(-.9);
+       // dumper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // dumper.setTargetPosition(3);
+    }
+
+    public void dumperStop(){
+        dumper.setPower(0);
     }
 
     public void liftBot(){ //bottom layer
-        outake.setPower(1);
-        outake.setTargetPosition(0);
+        elevator.setPower(1);
+        elevator.setTargetPosition(0);
     }
 
     public void liftMid(){ //middle layer
-        outake.setPower(1);
-        outake.setTargetPosition(2);
+        elevator.setPower(1);
+        elevator.setTargetPosition(2);
     }
 
     public void liftTop(){ //top layer
-        outake.setPower(1);
-        outake.setTargetPosition(4);
+        elevator.setPower(1);
+        elevator.setTargetPosition(4);
     }
 
-    public void duckkyturningwheeelthing(){
-        duckyygoturnturn.setPower(1);
+    public void liftUp(){
+        elevator.setPower(.75);
     }
 
-    public void STOPduckkyturningwheeelthing(){
-        duckyygoturnturn.setPower(0);
+    public void liftDown(){
+        elevator.setPower(-.75);
     }
+
+    public void liftStop(){
+        elevator.setPower(0);
+    }
+
+/*
+    public void duckkyturningwheeelthing(){ duckyygoturnturn.setPower(1); }
+
+    public void STOPduckkyturningwheeelthing(){ duckyygoturnturn.setPower(0); }
+*/
+    public void impelll(){ intake.setPower(1); }
+
+    public void expelll(){ intake.setPower(-1); }
+
+    public void stopelll(){ intake.setPower(0); }
 
 }

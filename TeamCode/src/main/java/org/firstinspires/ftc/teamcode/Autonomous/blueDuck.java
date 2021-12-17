@@ -206,9 +206,9 @@ public class blueDuck extends OpMode {
                 break;
 
             case 6:
-                robot.duckkyturningwheeelthing();
+                //robot.duckkyturningwheeelthing();
                 if (timer.seconds() > 3) {
-                    robot.STOPduckkyturningwheeelthing();
+                    //robot.STOPduckkyturningwheeelthing();
                     next();
                 }
                 break;
