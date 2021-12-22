@@ -45,13 +45,14 @@ public class chadDriver extends OpMode {
             if (Math.abs(gamepad1.left_stick_y) > Math.abs(gamepad1.left_stick_x)) {
                 if (gamepad1.left_stick_y > 0.1) {
                     //forward
-                    robot.backward(speed);
+                    robot.forward(speed);
                 } else {
                     //backwards
-                    robot.forward(speed);
+                    robot.backward(speed);
                 }
 
-            } else if (gamepad1.left_stick_x > -0.1) {
+            }
+                if (gamepad1.right_stick_x > -0.1) {
                 //right
                 robot.spinright();
             } else {
@@ -87,8 +88,6 @@ public class chadDriver extends OpMode {
                 robot.stopelll();//pressing x stops expeling/impeling
             }
 
-        telemetry.addData("elevator",robot.toString());//change
-        telemetry.addData("dumper",robot.toString());
         }
 
         private void updateCodriver() {
@@ -97,17 +96,21 @@ public class chadDriver extends OpMode {
                 //robot.liftMid();//left on dpad sets the lift to the middle section
             } else if (gamepad2.dpad_up) {
                 robot.liftUp();//up on dpad sets the lift to the top section
+                telemetry.addData("elevator",robot.getElevator().getCurrentPosition());
             } else if (gamepad2.dpad_down) {
                 robot.liftDown();//down on dpad sets the lift to the bottom section
+                telemetry.addData("elevator",robot.getElevator().getCurrentPosition());
             } else if (gamepad2.dpad_right) {
                 robot.liftStop();//
             }
 
             if (gamepad2.a) {
                 robot.dumpy();//pressing a dumps
+                telemetry.addData("dumper",robot.getDumper().getCurrentPosition());
             }
             if (gamepad2.b) {
                 robot.undumpy();//pressing b undumps
+                telemetry.addData("dumper",robot.getDumper().getCurrentPosition());
             }
             if (gamepad2.y) {
                 // robot.duckkyturningwheeelthing();//pressing y starts spinning the duckkyturnwheeelthing

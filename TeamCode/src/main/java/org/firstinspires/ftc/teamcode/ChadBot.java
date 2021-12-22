@@ -1,15 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaFieldNavigation;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptVuforiaFieldNavigationWebcam;
 //import org.firstinspires.ftc.teamcode.ColorRangeSensor;
 
@@ -47,6 +42,12 @@ public class ChadBot {
     /**
      * Stop the robot
      */
+
+    public DcMotor getBackLeft(){ return backLeft; }
+    public DcMotor getBackRight(){ return backRight; }
+    public DcMotor getIntake(){ return intake; }
+    public DcMotor getElevator(){ return elevator; }
+    public DcMotor getDumper(){ return dumper; }
 
     public void stop() {
         //frontLeft.setPower(0);
@@ -165,6 +166,8 @@ public class ChadBot {
     public void liftStop(){
         elevator.setPower(0);
     }
+
+
 
 /*
     public void duckkyturningwheeelthing(){ duckyygoturnturn.setPower(1); }

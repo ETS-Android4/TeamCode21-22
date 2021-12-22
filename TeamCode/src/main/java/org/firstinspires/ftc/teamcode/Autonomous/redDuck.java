@@ -86,8 +86,8 @@ public class redDuck extends OpMode {
         if (tfod != null) {
             tfod.activate();
             tfod.setZoom(1.25, 8.0 / 4.5);//change
-            //can change mag later to find seomthing better- if want to test
-            //dont change ratio
+            //Can change magnification later to find something better- if want to test
+            //Don't change the ratio
             robot.undumpy();
         }
 
@@ -151,7 +151,6 @@ public class redDuck extends OpMode {
 
                     break;
 
-                    //starts of left movements
             case 2:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.update();
@@ -159,7 +158,6 @@ public class redDuck extends OpMode {
                 if (timer.seconds() > 1)
                     next();
                 break;
-
 
             case 3:
                 robot.spinleft();
@@ -223,8 +221,6 @@ public class redDuck extends OpMode {
                 if(timer.seconds() > 1)
                     next();
                 break;
-
-
 
             case 13:
                 robot.undumpy();

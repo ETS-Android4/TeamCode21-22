@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,41 +9,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.ChadBot;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-
-
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import java.util.List;
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-@Autonomous(name = "blueDuck")
-public class blueDuck extends OpMode {
+@Autonomous(name = "redNoDuck")
+public class redNoDuck extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
@@ -184,7 +153,6 @@ public class blueDuck extends OpMode {
 
                     break;
 
-                    //starts of left movements
             case 2:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.update();
@@ -194,63 +162,106 @@ public class blueDuck extends OpMode {
                 break;
 
             case 3:
-                robot.spinleft();
+                robot.spinright();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
             case 4:
                 robot.forward(speed);
-                if (timer.seconds() > 3)
+                if (timer.seconds() > 2)
                     next();
                 break;
 
             case 5:
-                robot.spinleft();
-                if (timer.seconds() > 3)
+                robot.spinright();
+                if (timer.seconds() > ninety)
                     next();
                 break;
 
+            //start of left movements
             case 6:
                 robot.backward(speed);
-                if (timer.seconds() > 2)
+                if (timer.seconds() > 1)
                     next();
                 break;
-                //end of all positions
 
-            // start of middle movements
+            case 7:
+                robot.liftBot();
+                if (timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 8:
+                robot.dumpy();
+                if(timer.seconds() > 1)
+                    next();
+                break;
+
+            case 9:
+                robot.undumpy();
+                if(timer.seconds() > 1)
+                    next();
+                break;
+
+            case 10:
+                robot.forward(speed);
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 11:
+                robot.spinleft();
+                if (timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 12:
+                robot.forward(speed);
+                if (timer.seconds() > 4)
+                    next();
+                break;
+            //end of left position
+
+            // start of middle movemnets
             case 100:
-                robot.liftMid();// function name: uppiesMidddiess
+                robot.backward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
 
             case 101:
+                robot.liftMid();// function name: uppiesMidddiess
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 102:
                 robot.dumpy();
                 if(timer.seconds() > 1)
                     next();
                  break;
 
-            case 102:
+            case 103:
                  robot.undumpy();
                  if(timer.seconds() > 1)
                     next();
                  break;
 
-            case 103:
+            case 104:
                 robot.forward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
 
 
-            case 104:
+            case 105:
                 robot.spinright();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
-            case 105:
+            case 106:
                 robot.forward(speed);
                 if(timer.seconds() > 8.2)
                     next();
@@ -260,39 +271,49 @@ public class blueDuck extends OpMode {
 
             //start of right movements
             case 200:
-                robot.liftTop();
+                robot.backward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
 
             case 201:
+                robot.liftTop();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 202:
+                //park on white tape
                 robot.dumpy();
                 if (timer.seconds() > 1)
                     next();
                 break;
 
 
-            case 202:
+            case 203:
+                //park on white tape
                 robot.undumpy();
                 if (timer.seconds() > 1)
                     next();
                 break;
 
 
-            case 203:
+            case 204:
+                //park on white tape
                 robot.forward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
 
 
-            case 204:
+            case 205:
+                //park on white tape
                 robot.spinright();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
-            case 205:
+            case 206:
                 robot.forward(speed);
                 if(timer.seconds() > 8.2)
                     next();
