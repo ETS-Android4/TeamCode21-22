@@ -21,7 +21,7 @@ public class redDuck extends OpMode {
     private int state;
     private int inttterState;
 
-    private double ninety=1.0;//turn right 90degrees
+    private double ninety = 1.0;//turn right 90degrees
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -88,7 +88,6 @@ public class redDuck extends OpMode {
             tfod.setZoom(1.25, 8.0 / 4.5);//change
             //Can change magnification later to find something better- if want to test
             //Don't change the ratio
-            robot.undumpy();
         }
 
 
@@ -121,35 +120,35 @@ public class redDuck extends OpMode {
             case 1:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.update();
-                int i=0;
+                int i = 0;
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
+                if (updatedRecognitions != null) {
 
-                        for (Recognition recognition : updatedRecognitions) {
-                            telemetry.addData("# Object Detected", updatedRecognitions.size());
-                            // step through the list of recognitions and display boundary info.
+                    for (Recognition recognition : updatedRecognitions) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        // step through the list of recognitions and display boundary info.
 
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                    recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
-                            i++;
-                            telemetry.update();
-                            if (recognition.getLeft() <= 440) {//left postion
-                                inttterState = 9;
-                                next();
-                            } else if (recognition.getRight() >= 470) {//right position
-                                inttterState = 200;
-                                next();
-                            } else {//middle position
-                                inttterState = 100;
-                                next();
-                            }
+                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+                        i++;
+                        telemetry.update();
+                        if (recognition.getLeft() <= 440) {//left postion
+                            inttterState = 9;
+                            next();
+                        } else if (recognition.getRight() >= 470) {//right position
+                            inttterState = 200;
+                            next();
+                        } else {//middle position
+                            inttterState = 100;
+                            next();
                         }
                     }
+                }
 
-                    break;
+                break;
 
             case 2:
                 telemetry.addData(String.format("State (%d)", state), state);
@@ -178,9 +177,9 @@ public class redDuck extends OpMode {
                 break;
 
             case 6:
-               // robot.duckkyturningwheeelthing();
+                // robot.duckkyturningwheeelthing();
                 if (timer.seconds() > 3) {
-                 //   robot.STOPduckkyturningwheeelthing();
+                    //   robot.STOPduckkyturningwheeelthing();
                     next();
                 }
                 break;
@@ -200,9 +199,9 @@ public class redDuck extends OpMode {
             case 9:
                 robot.spinleft();
                 if (timer.seconds() > ninety)
-                    state=inttterState;
+                    state = inttterState;
                 break;
-                //end of all positions
+            //end of all positions
 
             case 10://start of left position
                 robot.backward(speed);
@@ -212,37 +211,37 @@ public class redDuck extends OpMode {
 
             case 11:
                 robot.liftBot();
-                if(timer.seconds() > 1)
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 12:
                 robot.dumpy();
-                if(timer.seconds() > 1)
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 13:
                 robot.undumpy();
-                if(timer.seconds() > 1)
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 14:
                 robot.forward(speed);
-                if(timer.seconds() > 1)
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 15:
                 robot.spinleft();
-                if(timer.seconds() > ninety)
+                if (timer.seconds() > ninety)
                     next();
                 break;
 
             case 16:
                 robot.forward(speed);
-                if(timer.seconds() > 8.2)
+                if (timer.seconds() > 8.2)
                     next();
                 break;
 
@@ -261,13 +260,13 @@ public class redDuck extends OpMode {
 
             case 102:
                 robot.dumpy();
-                if(timer.seconds() > 1)
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 103:
                 robot.undumpy();
-                if(timer.seconds() > 1)
+                if (timer.seconds() > 1)
                     next();
                 break;
 
@@ -285,10 +284,10 @@ public class redDuck extends OpMode {
 
             case 106:
                 robot.forward(speed);
-                if(timer.seconds() > 8.2)
+                if (timer.seconds() > 8.2)
                     next();
                 break;
-                //end of position middle
+            //end of position middle
 
 
             //start of right movements
@@ -334,10 +333,10 @@ public class redDuck extends OpMode {
 
             case 206:
                 robot.forward(speed);
-                if(timer.seconds() > 8.2)
+                if (timer.seconds() > 8.2)
                     next();
                 break;
             //end of right position
-                }
         }
     }
+}

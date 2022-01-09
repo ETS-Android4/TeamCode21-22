@@ -12,16 +12,15 @@ import org.firstinspires.ftc.teamcode.ChadBot;
 
 import java.util.List;
 
-@Autonomous(name = "redOnlyWarehouse")
-public class redOnlyWarehouse extends OpMode {
+@Autonomous(name = "straight")
+public class straight extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
     private double speed;
     private int state;
-    private int inttterState;
 
-    private double ninety=1.19;//turn 90degrees
+    private double ninety=1.5;//turn 90degrees
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -107,38 +106,24 @@ public class redOnlyWarehouse extends OpMode {
     @Override
     public void loop() {
         switch (state) {
-
             case 0:
-                telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.update();
-                robot.stop();
-                if (timer.seconds() > 0)
+                robot.backward(speed);
+                if (timer.seconds() > 1)
                     next();
                 break;
 
             case 1:
-                robot.forward(speed);
-                if (timer.seconds() > .25)
+                robot.spinright();
+                if(timer.seconds() >ninety)
                     next();
                 break;
 
             case 2:
-                robot.spinright();
-                if (timer.seconds() > ninety)
-                    next();
-                break;
-
-            case 3:
-                robot.forward(speed);
-                if (timer.seconds() > 3.5)
-                    next();
-                break;
-
-            case 4:
-                robot.stop();
+                robot.backward(speed);
                 if (timer.seconds() > 1)
                     next();
                 break;
+
         }
     }
 }

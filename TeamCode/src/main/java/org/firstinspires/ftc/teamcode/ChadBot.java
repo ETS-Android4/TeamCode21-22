@@ -39,10 +39,6 @@ public class ChadBot {
 
     }
 
-    /**
-     * Stop the robot
-     */
-
     public DcMotor getBackLeft(){ return backLeft; }
     public DcMotor getBackRight(){ return backRight; }
     public DcMotor getIntake(){ return intake; }
@@ -92,8 +88,8 @@ public class ChadBot {
     public void drive(double bL,double bR, double speed) {
         //frontLeft.setPower(fL*speed);
         //frontRight.setPower(fR*speed);
-        backLeft.setPower(bL*speed*-1);
-        backRight.setPower(bR*speed*-1);
+        backLeft.setPower(bL*speed);
+        backRight.setPower(bR*speed);
     }
 
     //public void stoppell(){
@@ -132,8 +128,14 @@ public class ChadBot {
 
     public void undumpy(){
         dumper.setPower(-.9);
-       // dumper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //dumper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
        // dumper.setTargetPosition(3);
+    }
+
+    public void Dump(){
+        dumper.setPower(1);
+        dumper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+         dumper.setTargetPosition(5057);
     }
 
     public void dumperStop(){
@@ -142,17 +144,17 @@ public class ChadBot {
 
     public void liftBot(){ //bottom layer
         elevator.setPower(1);
-        elevator.setTargetPosition(0);
+        elevator.setTargetPosition(1584);
     }
 
     public void liftMid(){ //middle layer
         elevator.setPower(1);
-        elevator.setTargetPosition(2);
+        elevator.setTargetPosition(4822);
     }
 
     public void liftTop(){ //top layer
         elevator.setPower(1);
-        elevator.setTargetPosition(4);
+        elevator.setTargetPosition(5378);
     }
 
     public void liftUp(){

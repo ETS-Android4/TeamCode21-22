@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
 @TeleOp(name = "chadDriver")
 public class chadDriver extends OpMode {
     private ChadBot robot;
@@ -19,6 +20,9 @@ public class chadDriver extends OpMode {
         updateDriver();
         updateCodriver();
         //feedback(telemetry);
+        telemetry.addData("elevator", robot.getElevator().getCurrentPosition());
+        telemetry.addData("dumper", robot.getDumper().getCurrentPosition());
+        telemetry.update();
     }
 
 
@@ -37,11 +41,11 @@ public class chadDriver extends OpMode {
             speed += .25;
 
         // direction controls
-        if (gamepad1.dpad_up) robot.forward(speed * .5);
+        if (gamepad1.dpad_up) robot.backward(speed * .5);
             // else if (gamepad1.dpad_right) robot.right(speed*.5);
-        else if (gamepad1.dpad_down) robot.backward(speed * .5);
+        else if (gamepad1.dpad_down) robot.forward(speed * .5);
             //else if (gamepad1.dpad_left) robot.left(speed*.5);
-        else if (gamepad1.left_stick_y != 0 || gamepad1.left_stick_x != 0) {
+        else if (Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_x) > .1) {
             if (Math.abs(gamepad1.left_stick_y) > Math.abs(gamepad1.left_stick_x)) {
                 if (gamepad1.left_stick_y > 0.1) {
                     //forward
@@ -52,74 +56,62 @@ public class chadDriver extends OpMode {
                 }
 
             }
-                if (gamepad1.right_stick_x > -0.1) {
-                //right
-                robot.spinright();
-            } else {
-                //left
+
+
+        } else if (Math.abs(gamepad1.right_stick_y) > .1 || Math.abs(gamepad1.right_stick_x) > .1) {
+            // right stick logic
+            if (gamepad1.right_stick_x > 0.1) {
                 robot.spinleft();
-            }
-
             } else {
-                robot.stop();//stops the robot
+                robot.spinright();
             }
-
-            //spin
-/*
-        if(gamepad1.right_stick_x>0.1){
-            robot.spinleft();
-        }
-        else if(gamepad1.right_stick_x<-0.1){
-            robot.spinright();
-        }
-        */
-
-
-            if (gamepad1.a) {
-                robot.impelll();//pressing a impels
-            }
-            if (gamepad1.b) {
-                robot.expelll();//pressing b expels
-            }
-            if (gamepad1.y) {
-                robot.stop();
-            }
-            if (gamepad1.x) {
-                robot.stopelll();//pressing x stops expeling/impeling
-            }
-
+        } else {
+            robot.stop();//stops the robot
         }
 
-        private void updateCodriver() {
 
-            if (gamepad2.dpad_left) {
-                //robot.liftMid();//left on dpad sets the lift to the middle section
-            } else if (gamepad2.dpad_up) {
-                robot.liftUp();//up on dpad sets the lift to the top section
-                telemetry.addData("elevator",robot.getElevator().getCurrentPosition());
-            } else if (gamepad2.dpad_down) {
-                robot.liftDown();//down on dpad sets the lift to the bottom section
-                telemetry.addData("elevator",robot.getElevator().getCurrentPosition());
-            } else if (gamepad2.dpad_right) {
-                robot.liftStop();//
-            }
-
-            if (gamepad2.a) {
-                robot.dumpy();//pressing a dumps
-                telemetry.addData("dumper",robot.getDumper().getCurrentPosition());
-            }
-            if (gamepad2.b) {
-                robot.undumpy();//pressing b undumps
-                telemetry.addData("dumper",robot.getDumper().getCurrentPosition());
-            }
-            if (gamepad2.y) {
-                // robot.duckkyturningwheeelthing();//pressing y starts spinning the duckkyturnwheeelthing
-            }
-            if (gamepad2.x) {
-                robot.dumperStop();
-                //robot.STOPduckkyturningwheeelthing();//pressing x stops spinning the duckkyturningwheeelthing
-            }
+        if (gamepad1.a) {
+            robot.impelll();//pressing a impels
+        }
+        if (gamepad1.b) {
+            robot.expelll();//pressing b expels
+        }
+        if (gamepad1.y) {
+            robot.stop();
+        }
+        if (gamepad1.x) {
+            robot.stopelll();//pressing x stops the intake
         }
 
     }
+
+    private void updateCodriver() {
+
+        if (gamepad2.dpad_left) {
+            //robot.liftMid();//left on dpad sets the lift to the middle section
+        } else if (gamepad2.dpad_up) {
+            robot.liftUp();//up on dpad sets the lift to the top section
+        } else if (gamepad2.dpad_down) {
+            robot.liftDown();//down on dpad sets the lift to the bottom section
+        } else if (gamepad2.dpad_right) {
+            robot.liftStop();//
+        }
+
+        if (gamepad2.a) {
+            robot.undumpy();//pressing a dumps
+        }
+        if (gamepad2.b) {
+            robot.dumperStop();
+        }
+        if (gamepad2.y) {
+            robot.dumpy();
+            // robot.duckkyturningwheeelthing();//pressing y starts spinning the duckkyturnwheeelthing
+        }
+        if (gamepad2.x) {
+            robot.stop();
+            //robot.STOPduckkyturningwheeelthing();//pressing x stops spinning the duckkyturningwheeelthing
+        }
+    }
+
+}
 

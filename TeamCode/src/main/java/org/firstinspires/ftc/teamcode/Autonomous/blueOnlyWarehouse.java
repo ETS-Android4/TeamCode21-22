@@ -17,7 +17,7 @@ public class blueOnlyWarehouse extends OpMode {
     private double speed;
     private int state;
 
-    private double ninety=1.0;//turn right 90degrees
+    private double ninety=1.19;//turn right 90degrees
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -84,7 +84,6 @@ public class blueOnlyWarehouse extends OpMode {
             tfod.setZoom(1.25, 8.0 / 4.5);//change
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
-            robot.undumpy();
         }
 
 
@@ -115,14 +114,29 @@ public class blueOnlyWarehouse extends OpMode {
 
             case 1:
                 robot.forward(speed);
-                if (timer.seconds() > 10)
+                if (timer.seconds() > .25)
                     next();
                 break;
 
             case 2:
-                robot.stop();
-                if (timer.seconds() > 10)
+                robot.spinleft();
+                if (timer.seconds() > ninety)
                     next();
+                break;
+
+            case 3:
+                robot.forward(speed);
+                if (timer.seconds() > 3.5)
+                    state=5;
+                break;
+
+            case 4:
+                robot.stop();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+            case 5:
+                robot.stop();
                 break;
         }
     }

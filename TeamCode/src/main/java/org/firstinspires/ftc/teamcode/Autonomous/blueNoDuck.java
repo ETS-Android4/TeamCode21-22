@@ -19,8 +19,9 @@ public class blueNoDuck extends OpMode {
     private ChadBot robot;
     private double speed;
     private int state;
+    private int inttterState;
 
-    private double ninety=1.0;//turn right 90degrees
+    private double ninety = 1.0;//turn right 90degrees
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -87,7 +88,6 @@ public class blueNoDuck extends OpMode {
             tfod.setZoom(1.25, 8.0 / 4.5);//change
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
-            robot.undumpy();
         }
 
 
@@ -107,7 +107,6 @@ public class blueNoDuck extends OpMode {
     @Override
     public void loop() {
         switch (state) {
-
             case 0:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.update();
@@ -116,29 +115,197 @@ public class blueNoDuck extends OpMode {
                     next();
                 break;
 
+
             case 1:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.update();
+                //if(tfod != null){
+                int i = 0;
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                if (updatedRecognitions != null) {
+
+                    for (Recognition recognition : updatedRecognitions) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        // step through the list of recognitions and display boundary info.
+
+                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+                        i++;
+                        telemetry.update();
+                        if (recognition.getLeft() <= 440) {//left postion
+                            inttterState = 9;
+                            next();
+                        } else if (recognition.getRight() >= 470) {//right position
+                            inttterState = 200;
+                            next();
+                        } else {//middle position
+                            inttterState = 100;
+                            next();
+                        }
+                    }
+                }
+                // }
+
+                break;
+
+            case 2:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.update();
+                robot.forward(speed);
+                if (timer.seconds() > 2)
+                    next();
+                break;
+
+            case 3:
+                robot.spinright();
+                if (timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 4:
+                robot.backward(speed);
+                if (timer.seconds() > .3)
+                    state = inttterState;
+                break;
+            //end of all positions
+
+            //start of left positions
+            case 5:
+                // robot.liftTop();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 6:
+                //robot.dumpy();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+
+            case 7:
+                //robot.undumpy();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+
+            case 8:
+                robot.forward(speed);
+                if (timer.seconds() > .3)
+                    next();
+                break;
+
+
+            case 9:
+                robot.spinright();
+                if (timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 10:
                 robot.forward(speed);
                 if (timer.seconds() > .5)
                     next();
                 break;
 
-            case 2:
-                robot.spinleft();
-                if (timer.seconds() > 10)
+            // start of middle movements
+            case 100:
+                //robot.liftMid();
+                if (timer.seconds() > 1)
                     next();
                 break;
 
-            case 3:
+            case 101:
+                //robot.dumpy();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 102:
+                //robot.undumpy();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 103:
                 robot.forward(speed);
-                if (timer.seconds() > 10)
+                if (timer.seconds() > .3)
                     next();
                 break;
 
-            case 4:
-                robot.stop();
-                if (timer.seconds() > 10)
+
+            case 104:
+                robot.spinright();
+                if (timer.seconds() > ninety)
                     next();
                 break;
+
+            case 105:
+                robot.forward(speed);
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 106:
+                robot.spinright();
+                if (timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 107:
+                robot.forward(speed);
+                if (timer.seconds() > 8)
+                    next();
+                break;
+            //end of position middle
+
+
+            //start of right movements
+            case 200:
+                // robot.liftTop();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+            case 201:
+                //robot.dumpy();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+
+            case 202:
+                //robot.undumpy();
+                if (timer.seconds() > 1)
+                    next();
+                break;
+
+
+            case 203:
+                robot.forward(speed);
+                if (timer.seconds() > .3)
+                    next();
+                break;
+
+
+            case 204:
+                robot.spinright();
+                if (timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 205:
+                robot.forward(speed);
+                if (timer.seconds() > .5)
+                    next();
+                break;
+            //end of right position
         }
-        }
+
     }
+
+}

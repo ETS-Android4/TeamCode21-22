@@ -119,7 +119,6 @@ public class blueWarehouse extends OpMode {
             tfod.setZoom(1.25, 8.0 / 4.5);//change
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
-            robot.undumpy();
         }
 
 

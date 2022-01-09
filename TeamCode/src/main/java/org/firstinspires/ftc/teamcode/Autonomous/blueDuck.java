@@ -103,7 +103,7 @@ public class blueDuck extends OpMode {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minResultConfidence = 0.8f;
+        tfodParameters.minResultConfidence = 0.6f;
         tfodParameters.isModelTensorFlow2 = true;
         tfodParameters.inputSize = 320;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
@@ -116,10 +116,10 @@ public class blueDuck extends OpMode {
         initTfod();
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(1.25, 8.0 / 4.5);//change
+            tfod.setZoom(1, 8.0 / 4.5);//change
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
-            robot.undumpy();
+            //robot.undumpy();
         }
 
 
@@ -170,21 +170,21 @@ public class blueDuck extends OpMode {
                             telemetry.update();
                             if (recognition.getLeft() <= 440) {//left postion
                                 inttterState = 9;
-                                next();
+                                //next();
                             } else if (recognition.getRight() >= 470) {//right position
                                 inttterState = 200;
-                                next();
+                                //next();
                             } else {//middle position
                                 inttterState = 100;
-                                next();
+                                //next();
                             }
                         }
                     }
                     // }
+                state=1;
 
                     break;
 
-                    //starts of left movements
             case 2:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.update();
@@ -194,45 +194,32 @@ public class blueDuck extends OpMode {
                 break;
 
             case 3:
-                robot.spinleft();
+                robot.spinright();
                 if (timer.seconds() > ninety)
                     next();
                 break;
 
             case 4:
-                robot.forward(speed);
-                if (timer.seconds() > 3)
-                    next();
-                break;
-
-            case 5:
-                robot.spinleft();
-                if (timer.seconds() > 3)
-                    next();
-                break;
-
-            case 6:
                 robot.backward(speed);
-                if (timer.seconds() > 2)
-                    next();
-                break;
+                if (timer.seconds() > .3)
+                    state=inttterState;
                 //end of all positions
 
             // start of middle movements
             case 100:
-                robot.liftMid();// function name: uppiesMidddiess
+                //robot.liftMid();
                 if (timer.seconds() > 1)
                     next();
                 break;
 
             case 101:
-                robot.dumpy();
+                //robot.dumpy();
                 if(timer.seconds() > 1)
                     next();
                  break;
 
             case 102:
-                 robot.undumpy();
+                 //robot.undumpy();
                  if(timer.seconds() > 1)
                     next();
                  break;
@@ -252,7 +239,19 @@ public class blueDuck extends OpMode {
 
             case 105:
                 robot.forward(speed);
-                if(timer.seconds() > 8.2)
+                if(timer.seconds() > 1)
+                    next();
+                break;
+
+            case 106:
+                robot.spinright();
+                if(timer.seconds() > ninety)
+                    next();
+                break;
+
+            case 107:
+                robot.forward(speed);
+                if(timer.seconds() > 8)
                     next();
                 break;
                 //end of position middle
@@ -260,20 +259,20 @@ public class blueDuck extends OpMode {
 
             //start of right movements
             case 200:
-                robot.liftTop();
+               // robot.liftTop();
                 if (timer.seconds() > 1)
                     next();
                 break;
 
             case 201:
-                robot.dumpy();
+                //robot.dumpy();
                 if (timer.seconds() > 1)
                     next();
                 break;
 
 
             case 202:
-                robot.undumpy();
+                //robot.undumpy();
                 if (timer.seconds() > 1)
                     next();
                 break;
