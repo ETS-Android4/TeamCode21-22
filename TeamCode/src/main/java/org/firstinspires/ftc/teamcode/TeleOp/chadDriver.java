@@ -48,11 +48,11 @@ public class chadDriver extends OpMode {
         else if (Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.left_stick_x) > .1) {
             if (Math.abs(gamepad1.left_stick_y) > Math.abs(gamepad1.left_stick_x)) {
                 if (gamepad1.left_stick_y > 0.1) {
+                    //backward
+                    robot.backward(speed);
+                } else {
                     //forward
                     robot.forward(speed);
-                } else {
-                    //backwards
-                    robot.backward(speed);
                 }
 
             }
@@ -61,9 +61,9 @@ public class chadDriver extends OpMode {
         } else if (Math.abs(gamepad1.right_stick_y) > .1 || Math.abs(gamepad1.right_stick_x) > .1) {
             // right stick logic
             if (gamepad1.right_stick_x > 0.1) {
-                robot.spinleft();
-            } else {
                 robot.spinright();
+            } else {
+                robot.spinleft();
             }
         } else {
             robot.stop();//stops the robot
@@ -104,13 +104,22 @@ public class chadDriver extends OpMode {
             robot.dumperStop();
         }
         if (gamepad2.y) {
-            robot.dumpy();
-            // robot.duckkyturningwheeelthing();//pressing y starts spinning the duckkyturnwheeelthing
+            robot.dumpy();//pressing y starts spinning the duckkyturnwheeelthing
         }
         if (gamepad2.x) {
-            robot.stop();
-            //robot.STOPduckkyturningwheeelthing();//pressing x stops spinning the duckkyturningwheeelthing
+            robot.stop();//pressing x stops spinning the duckkyturningwheeelthing
         }
+        if (gamepad2.left_trigger == 1) {
+            robot.clockwiseDuckyTurn();
+        }
+        if (gamepad2.right_trigger == 1) {
+            robot.counterClockwiseDuckyTurn();//pressing x stops spinning the duckkyturningwheeelthing
+        }
+        if (gamepad2.right_bumper) {
+            robot.StopDuckyTurn();//pressing x stops spinning the duckkyturningwheeelthing
+        }
+
+
     }
 
 }

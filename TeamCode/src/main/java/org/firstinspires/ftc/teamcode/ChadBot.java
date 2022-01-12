@@ -16,7 +16,7 @@ public class ChadBot {
 
     private DcMotor intake;
     private DcMotor elevator;
-    //private DcMotor duckyygoturnturn;
+    private DcMotor ducky;
     private DcMotor dumper;
 
     private ConceptVuforiaFieldNavigationWebcam phone;
@@ -29,7 +29,7 @@ public class ChadBot {
         backRight = map.dcMotor.get("backRight");
         intake = map.dcMotor.get("intake");
         elevator = map.dcMotor.get("elevator");
-        //duckyygoturnturn = map.dcMotor.get("duck");
+        ducky = map.dcMotor.get("duck");
         dumper = map.dcMotor.get("dumper");
 
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -158,11 +158,11 @@ public class ChadBot {
     }
 
     public void liftUp(){
-        elevator.setPower(.75);
+        elevator.setPower(-.75);
     }
 
     public void liftDown(){
-        elevator.setPower(-.75);
+        elevator.setPower(.75);
     }
 
     public void liftStop(){
@@ -171,11 +171,13 @@ public class ChadBot {
 
 
 
-/*
-    public void duckkyturningwheeelthing(){ duckyygoturnturn.setPower(1); }
 
-    public void STOPduckkyturningwheeelthing(){ duckyygoturnturn.setPower(0); }
-*/
+    public void clockwiseDuckyTurn(){ ducky.setPower(1); }
+
+    public void counterClockwiseDuckyTurn(){ducky.setPower(-1);}
+
+    public void StopDuckyTurn(){ ducky.setPower(0); }
+
     public void impelll(){ intake.setPower(1); }
 
     public void expelll(){ intake.setPower(-1); }

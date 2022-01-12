@@ -21,7 +21,7 @@ public class redDuck extends OpMode {
     private int state;
     private int inttterState;
 
-    private double ninety = 1.0;//turn right 90degrees
+    private double ninety = 1.19;//turn right 90degrees
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
