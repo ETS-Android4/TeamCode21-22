@@ -22,6 +22,8 @@ public class chadDriver extends OpMode {
         //feedback(telemetry);
         telemetry.addData("elevator", robot.getElevator().getCurrentPosition());
         telemetry.addData("dumper", robot.getDumper().getCurrentPosition());
+        telemetry.addData("backLeft",robot.getBackLeft().getCurrentPosition());
+        telemetry.addData("backRight",robot.getBackRight().getCurrentPosition());
         telemetry.update();
     }
 
@@ -82,6 +84,10 @@ public class chadDriver extends OpMode {
         if (gamepad1.x) {
             robot.stopelll();//pressing x stops the intake
         }
+        if(gamepad1.right_stick_button){
+            robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
 
     }
 
@@ -90,9 +96,9 @@ public class chadDriver extends OpMode {
         if (gamepad2.dpad_left) {
             //robot.liftMid();//left on dpad sets the lift to the middle section
         } else if (gamepad2.dpad_up) {
-            robot.liftUp();//up on dpad sets the lift to the top section
+            robot.liftDown();//up on dpad sets the lift to the top section
         } else if (gamepad2.dpad_down) {
-            robot.liftDown();//down on dpad sets the lift to the bottom section
+            robot.liftUp();//down on dpad sets the lift to the bottom section
         } else if (gamepad2.dpad_right) {
             robot.liftStop();//
         }

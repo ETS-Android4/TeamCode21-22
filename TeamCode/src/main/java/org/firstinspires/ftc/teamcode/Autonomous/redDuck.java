@@ -21,8 +21,6 @@ public class redDuck extends OpMode {
     private int state;
     private int inttterState;
 
-    private double ninety = 1.19;//turn right 90degrees
-
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
                     "eKXe32WnMf6M2BSJSgoPfTZmkmujVujpE/hUrmy5p4L7CALtVoM+TDkfshpKd+LGJT834pEOYU" +
@@ -160,7 +158,7 @@ public class redDuck extends OpMode {
 
             case 3:
                 robot.spinleft();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 
@@ -198,7 +196,7 @@ public class redDuck extends OpMode {
 
             case 9:
                 robot.spinleft();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     state = inttterState;
                 break;
             //end of all positions
@@ -235,7 +233,7 @@ public class redDuck extends OpMode {
 
             case 15:
                 robot.spinleft();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 
@@ -278,7 +276,7 @@ public class redDuck extends OpMode {
 
             case 105:
                 robot.spinleft();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 
@@ -327,7 +325,7 @@ public class redDuck extends OpMode {
             case 205:
                 //park on white tape
                 robot.spinright();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 

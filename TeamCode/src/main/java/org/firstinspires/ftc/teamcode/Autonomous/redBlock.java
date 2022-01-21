@@ -6,16 +6,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.ChadBot;
 
-@Autonomous(name = "blueOnlyWarehouse")
-public class blueOnlyWarehouse extends OpMode {
+import java.util.List;
+
+@Autonomous(name = "redBlock")
+public class redBlock extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
     private double speed;
     private int state;
+    private int inttterState;
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -104,37 +108,57 @@ public class blueOnlyWarehouse extends OpMode {
 
             case 0:
                 telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.update();
-                robot.stop();
-                if (timer.seconds() > 0)
+                robot.forward(speed);
+                if (timer.seconds() > .5)
                     next();
                 break;
 
             case 1:
-                robot.forward(speed);
-                if (timer.seconds() > .25)
-                    next();
-                break;
-
-            case 2:
-                robot.spinleft();
+                robot.spinright();
                 if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 
+            case 2:
+                robot.backward(speed);
+                if (timer.seconds() > .3)
+                    next();
+                break;
+
             case 3:
-                robot.forward(speed);
-                if (timer.seconds() > 8)
-                    state=5;
+                robot.liftUp();
+                if (timer.seconds() > 4.5)
+                    next();
                 break;
 
             case 4:
-                robot.stop();
-                if (timer.seconds() > 1)
+                robot.dumpy();
+                if (timer.seconds() > 3)
                     next();
                 break;
+
             case 5:
-                robot.stop();
+                robot.undumpy();
+                if (timer.seconds() > 3)
+                    next();
+                break;
+
+            case 6:
+                robot.forward(speed);
+                if (timer.seconds() > .2)
+                    next();
+                break;
+
+            case 7:
+                robot.spinright();
+                if (timer.seconds() > robot.getNinety()/2)
+                    next();
+                break;
+
+            case 8:
+                robot.forward(speed);
+                if (timer.seconds() > 6)
+                    next();
                 break;
         }
     }

@@ -52,8 +52,6 @@ public class redWarehouse extends OpMode {
     private int state;
     private int inttterState;
 
-    private double ninety=1.19;//turn right 90degrees
-
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
                     "eKXe32WnMf6M2BSJSgoPfTZmkmujVujpE/hUrmy5p4L7CALtVoM+TDkfshpKd+LGJT834pEOYU" +
@@ -194,7 +192,7 @@ public class redWarehouse extends OpMode {
 
             case 3:
                 robot.spinright();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 
@@ -206,7 +204,7 @@ public class redWarehouse extends OpMode {
 
             case 5:
                 robot.spinright();
-                if (timer.seconds() > ninety) {
+                if (timer.seconds() > robot.getNinety()) {
                     next();
                 }
                 break;
@@ -245,7 +243,7 @@ public class redWarehouse extends OpMode {
 
             case 11:
                 robot.spinleft();
-                if(timer.seconds() > ninety)
+                if(timer.seconds() > robot.getNinety())
                     next();
                 break;
 
@@ -284,7 +282,7 @@ public class redWarehouse extends OpMode {
 
             case 104:
                 robot.spinleft();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 
@@ -330,7 +328,7 @@ public class redWarehouse extends OpMode {
             case 204:
                 //park on white tape
                 robot.spinleft();
-                if (timer.seconds() > ninety)
+                if (timer.seconds() > robot.getNinety())
                     next();
                 break;
 
