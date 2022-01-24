@@ -21,6 +21,10 @@ public class secretMission extends OpMode {
     private double speed;
     private int state;
     private int inttterState;
+    private DcMotor backLeft;
+    private DcMotor backRight;
+    private int encoder = -1;
+    private DcMotor Ducky;
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -95,14 +99,20 @@ public class secretMission extends OpMode {
         robot.init(hardwareMap);
         speed = .5;
         state = 0;
-        robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft = robot.getBackLeft();
+        backRight = robot.getBackRight();
+        Ducky = robot.getDucky();
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
     public void next() {
         state++;
         timer.reset();
         robot.stop();
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     @Override
@@ -114,21 +124,34 @@ public class secretMission extends OpMode {
                 telemetry.addData("backRight",robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft",robot.getBackLeft().getCurrentPosition());
                 //robot.forward(1);
-                robot.getBackLeft().setTargetPosition(220);
-                robot.getBackRight().setTargetPosition(220);//220
+                robot.getBackLeft().setTargetPosition(220*encoder);
+                robot.getBackRight().setTargetPosition(220*encoder);//220
                 robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.getBackRight().setPower(0.25);
-                robot.getBackLeft().setPower(0.25);
-                    next();\
-
+                robot.getBackRight().setPower(0.1);
+                robot.getBackLeft().setPower(0.1);
+                if (!backRight.isBusy() && !backLeft.isBusy()) {
+                    next();
+                }
 
                 break;
 
             case 1:
                 telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.addData("backRight",robot.getBackRight().getCurrentPosition());
-                telemetry.addData("backLeft",robot.getBackLeft().getCurrentPosition());
+                telemetry.addData("backRight",backRight.getCurrentPosition());
+                telemetry.addData("backLeft",backLeft.getCurrentPosition());
+
+                robot.getBackLeft().setTargetPosition(-630*encoder);
+                robot.getBackRight().setTargetPosition(630*encoder);//220
+                robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.getBackRight().setPower(0.1);
+                robot.getBackLeft().setPower(0.1);
+                if (!backRight.isBusy() && !backLeft.isBusy()) {
+                    next();
+                }
+
+
                 /*if (robot.getBackLeft().isBusy() == false) {
                     robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -137,15 +160,33 @@ public class secretMission extends OpMode {
                 break;
 
             case 2:
-                robot.spinleft();
-                if (robot.getBackLeft().getCurrentPosition() > .8)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight",backRight.getCurrentPosition());
+                telemetry.addData("backLeft",backLeft.getCurrentPosition());
+
+                robot.getBackLeft().setTargetPosition(1000*encoder);
+                robot.getBackRight().setTargetPosition(1000*encoder);//220
+                robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.getBackRight().setPower(0.5);
+                robot.getBackLeft().setPower(0.5);
+                if (!backRight.isBusy() && !backLeft.isBusy()) {
                     next();
+                }
                 break;
 
             case 3:
-                robot.backward(speed);
-                if (timer.seconds() > .3)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("Seconds: ", timer.);
+
+                Ducky.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                robot.clockwiseDuckyTurn();
+                if (timer.seconds() > 3)
                     next();
+                break;
+
+            case 4:
+                robot.stop();
                 break;
         }
     }

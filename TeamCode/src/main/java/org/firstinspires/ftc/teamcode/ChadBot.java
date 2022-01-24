@@ -47,6 +47,7 @@ public class ChadBot {
     public DcMotor getIntake(){ return intake; }
     public DcMotor getElevator(){ return elevator; }
     public DcMotor getDumper(){ return dumper; }
+    public DcMotor getDucky(){ return ducky; }
 
     public void stop() {
         //frontLeft.setPower(0);
