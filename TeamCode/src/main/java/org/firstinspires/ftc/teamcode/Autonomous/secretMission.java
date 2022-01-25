@@ -115,6 +115,16 @@ public class secretMission extends OpMode {
         backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
+
+    public void encoder(int left, int right){
+        robot.getBackLeft().setTargetPosition(left*encoder);
+        robot.getBackRight().setTargetPosition(right*encoder);
+        robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.getBackRight().setPower(speed);
+        robot.getBackLeft().setPower(speed);
+    }
+
     @Override
     public void loop() {
         switch (state) {
@@ -124,12 +134,7 @@ public class secretMission extends OpMode {
                 telemetry.addData("backRight",robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft",robot.getBackLeft().getCurrentPosition());
                 //robot.forward(1);
-                robot.getBackLeft().setTargetPosition(220*encoder);
-                robot.getBackRight().setTargetPosition(220*encoder);//220
-                robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.getBackRight().setPower(0.1);
-                robot.getBackLeft().setPower(0.1);
+                encoder(220,220);
                 if (!backRight.isBusy() && !backLeft.isBusy()) {
                     next();
                 }
@@ -141,12 +146,7 @@ public class secretMission extends OpMode {
                 telemetry.addData("backRight",backRight.getCurrentPosition());
                 telemetry.addData("backLeft",backLeft.getCurrentPosition());
 
-                robot.getBackLeft().setTargetPosition(-630*encoder);
-                robot.getBackRight().setTargetPosition(630*encoder);//220
-                robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.getBackRight().setPower(0.1);
-                robot.getBackLeft().setPower(0.1);
+                encoder(-630,630);
                 if (!backRight.isBusy() && !backLeft.isBusy()) {
                     next();
                 }
@@ -164,12 +164,7 @@ public class secretMission extends OpMode {
                 telemetry.addData("backRight",backRight.getCurrentPosition());
                 telemetry.addData("backLeft",backLeft.getCurrentPosition());
 
-                robot.getBackLeft().setTargetPosition(1000*encoder);
-                robot.getBackRight().setTargetPosition(1000*encoder);//220
-                robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.getBackRight().setPower(0.5);
-                robot.getBackLeft().setPower(0.5);
+                encoder(1000,1000);
                 if (!backRight.isBusy() && !backLeft.isBusy()) {
                     next();
                 }
@@ -177,12 +172,12 @@ public class secretMission extends OpMode {
 
             case 3:
                 telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.addData("Seconds: ", timer.);
-
-                Ducky.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                robot.clockwiseDuckyTurn();
+                telemetry.addData("Seconds: ", timer);
+                encoder(0,0);
+                robot.counterClockwiseDuckyTurn();
                 if (timer.seconds() > 3)
                     next();
+
                 break;
 
             case 4:
