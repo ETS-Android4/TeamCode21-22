@@ -22,6 +22,15 @@ public class ChadBot {
     private ConceptVuforiaFieldNavigationWebcam phone;
 
     private double ninety;
+    private int encod=-1;
+
+    public void encoder(int left, int right){
+        backLeft.setTargetPosition(left*encod);
+        backRight.setTargetPosition(right*encod);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
 
     public void init(HardwareMap map) {
         // Initialize & configure drive motors
@@ -77,6 +86,7 @@ public class ChadBot {
             backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
+
 
 
     /**

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -20,6 +21,7 @@ public class blueBlock extends OpMode {
     private double speed;
     private int state;
     private int inttterState;
+    private int encoder = -1;
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -86,6 +88,14 @@ public class blueBlock extends OpMode {
             tfod.setZoom(1.25, 8.0 / 4.5);//change
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
+
+            timer = new ElapsedTime();
+            robot = new ChadBot();
+            robot.init(hardwareMap);
+            speed = .5;
+            state = 0;
+            robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
 
@@ -100,6 +110,15 @@ public class blueBlock extends OpMode {
         state++;
         timer.reset();
         robot.stop();
+    }
+
+    public void encoder(int left, int right){
+        robot.getBackLeft().setTargetPosition(left*encoder);
+        robot.getBackRight().setTargetPosition(right*encoder);
+        robot.getBackLeft().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.getBackRight().setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.getBackRight().setPower(speed);
+        robot.getBackLeft().setPower(speed);
     }
 
     @Override
