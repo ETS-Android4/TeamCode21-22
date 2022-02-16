@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.ChadBot;
 
 import java.util.List;
 
-@Autonomous(name = "redBlock")
-public class redBlock extends OpMode {
+@Autonomous(name = "flowBlock")
+public class flowBlock extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
@@ -112,123 +112,61 @@ public class redBlock extends OpMode {
         switch (state) {
 
             case 0:
-            robot.encoder(1100, 1100, .25);
-            if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                next();
-            }
-            break;
-
-            case 1:
-                robot.encoder(630, -630, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 2:
-                robot.TheEncoder(5000, 1);
-                robot.encoder(-120, -120, .25);
-                if (!robot.getElevator().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 3:
-                robot.dumpy();
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-
-
-            case 4:
-                robot.undumpy();
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 5:
-                robot.encoder(140, 140, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 6:
-                robot.encoder(315, -315, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 7:
-                robot.TheEncoder( 10, 1);
-                robot.encoder(2000, 2000, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-
-
-
-
-
-
-           /* case 0:
                 telemetry.addData(String.format("State (%d)", state), state);
-                robot.forward(speed);
-                if (timer.seconds() > .5)
-                    next();
+                telemetry.update();
+                //if(tfod != null){
+                int i=0;
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                if (updatedRecognitions != null) {
+
+                    for (Recognition recognition : updatedRecognitions) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        // step through the list of recognitions and display boundary info.
+
+                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+                        i++;
+                        telemetry.update();
+                        if (recognition.getLeft() <= 440) {//left postion
+                            inttterState = 1;
+                            //next();
+                        } else if (recognition.getRight() >= 470) {//right position
+                            inttterState = 200;
+                            //next();
+                        } else {//middle position
+                            inttterState = 100;
+                            //next();
+                        }
+                    }
+                }
+                // }
+                state=inttterState;
+
                 break;
 
             case 1:
-                robot.spinright();
-                if (timer.seconds() > robot.getNinety())
+                robot.encoder(-200, 200, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
+                }
                 break;
 
-            case 2:
-                robot.backward(speed);
-                if (timer.seconds() > .3)
+            case 100:
+                robot.encoder(200, 200, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
+                }
                 break;
 
-            case 3:
-                robot.liftUp();
-                if (timer.seconds() > 4.5)
+            case 200:
+                robot.encoder(200, -200, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
+                }
                 break;
-
-            case 4:
-                robot.dumpy();
-                if (timer.seconds() > 3)
-                    next();
-                break;
-
-            case 5:
-                robot.undumpy();
-                if (timer.seconds() > 3)
-                    next();
-                break;
-
-            case 6:
-                robot.forward(speed);
-                if (timer.seconds() > .2)
-                    next();
-                break;
-
-            case 7:
-                robot.spinright();
-                if (timer.seconds() > robot.getNinety()/2)
-                    next();
-                break;
-
-            case 8:
-                robot.forward(speed);
-                if (timer.seconds() > 6)
-                    next();
-                break;*/
 
 
         }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -12,14 +13,15 @@ import org.firstinspires.ftc.teamcode.ChadBot;
 
 import java.util.List;
 
-@Autonomous(name = "redNoDuck")
-public class redNoDuck extends OpMode {
+@Autonomous(name = "superSecretMission")
+public class superSecretMission extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
     private double speed;
     private int state;
     private int inttterState;
+
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -87,70 +89,30 @@ public class redNoDuck extends OpMode {
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
         }
-
-
         timer = new ElapsedTime();
         robot = new ChadBot();
         robot.init(hardwareMap);
-        speed = .5;
+        speed = .25;
         state = 0;
+
+        robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getElevator().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void next() {
         state++;
         timer.reset();
         robot.stop();
+        robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     @Override
     public void loop() {
-        switch (state) {/*
-
+        switch (state) {
+/*
             case 0:
-                telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.update();
-                robot.stop();
-                if (timer.seconds() > 0)
-                    next();
-                break;
-
-
-            case 1:
-                telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.update();
-                //if(tfod != null){
-                int i = 0;
-                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                if (updatedRecognitions != null) {
-
-                    for (Recognition recognition : updatedRecognitions) {
-                        telemetry.addData("# Object Detected", updatedRecognitions.size());
-                        // step through the list of recognitions and display boundary info.
-
-                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                recognition.getLeft(), recognition.getTop());
-                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());
-                        i++;
-                        telemetry.update();
-                        if (recognition.getLeft() <= 440) {//left postion
-                            inttterState = 10;
-                            next();
-                        } else if (recognition.getLeft() <= 490) {//middle position
-                            inttterState = 20;
-                            next();
-                        } else {//right position
-                            inttterState = 30;
-                            next();
-                        }
-                    }
-                }
-                // }
-
-                break;
-
-            case 2:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -163,7 +125,7 @@ public class redNoDuck extends OpMode {
                 }
                 break;
 
-            case 3:
+            case 1:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -173,45 +135,26 @@ public class redNoDuck extends OpMode {
                     next();
                 }
                 break;
-            case 4:
+            case 2:
                 //robot.forward(1);
                 robot.encoder(-300, -300, .8);
                 if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    state=inttterState;
+                    next();
                 }
                 break;
-            case 10:
+            case 3:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
                 telemetry.addData("elevator", robot.getElevator().getCurrentPosition());
-                robot.liftDown();
+                //robot.TheEncoder(12000,.7);
+
                 if (!robot.getElevator().isBusy()) {
-                    state=31;
-                }
-                break;
-            case 20:
-                telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
-                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
-                telemetry.addData("elevator", robot.getElevator().getCurrentPosition());
-                robot.liftMid();
-                if (!robot.getElevator().isBusy()) {
-                    state=31;
-                }
-                break;
-            case 30:
-                telemetry.addData(String.format("State (%d)", state), state);
-                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
-                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
-                telemetry.addData("elevator", robot.getElevator().getCurrentPosition());
-                robot.liftUp();
-                if (!robot.getElevator().isBusy()) {
-                    state=31;
+                    next();
                 }
                 break;
 
-            case 31:
+            case 4:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -220,7 +163,7 @@ public class redNoDuck extends OpMode {
                 if (robot.getDumper().getPosition() >= .89)
                     next();
 
-            case 32:
+            case 5:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -231,7 +174,7 @@ public class redNoDuck extends OpMode {
                 }
 
                 break;
-            case 33:
+            case 6:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -242,7 +185,7 @@ public class redNoDuck extends OpMode {
                     next();
                 }
                 break;
-            case 34:
+            case 7:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -253,7 +196,7 @@ public class redNoDuck extends OpMode {
                 }
                 break;
 
-            case 35:
+            case 8:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -264,7 +207,7 @@ public class redNoDuck extends OpMode {
                 }
                 break;
 
-            case 36:
+            case 9:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -275,7 +218,7 @@ public class redNoDuck extends OpMode {
                 }
                 break;
 
-            case 37:
+            case 10:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -284,7 +227,7 @@ public class redNoDuck extends OpMode {
                     next();
                 break;
 
-            case 38:
+            case 11:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("Seconds: ", timer.seconds());
                 robot.encoder(0, 0, .25);
@@ -294,7 +237,7 @@ public class redNoDuck extends OpMode {
                     next();
                 break;
 
-            case 39:
+            case 12:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -305,7 +248,7 @@ public class redNoDuck extends OpMode {
                     next();
                 }
                 break;
-            case 40:
+            case 13:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
@@ -316,6 +259,65 @@ public class redNoDuck extends OpMode {
                     next();
                 }
                 break;*/
+
+
+            case 0:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                robot.forward(1);
+                robot.encoder(220, 220, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 1:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+
+                robot.encoder(650, -650, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 2:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+
+                robot.encoder(600, 600, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 3:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("Seconds: ", timer.seconds());
+                robot.encoder(0, 0, .25);
+                robot.counterClockwiseDuckyTurn();
+                robot.forward(.1);
+                if (timer.seconds() > 4)
+                    next();
+                break;
+
+            case 4:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+
+                robot.encoder(-3250, -3250, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 5:
+
+                break;
         }
     }
 }

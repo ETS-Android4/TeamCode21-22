@@ -13,14 +13,15 @@ import org.firstinspires.ftc.teamcode.ChadBot;
 
 import java.util.List;
 
-@Autonomous(name = "redBlock")
-public class redBlock extends OpMode {
+@Autonomous(name = "superDuckRed")
+public class superDuck extends OpMode {
 
     ElapsedTime timer;
     private ChadBot robot;
     private double speed;
     private int state;
     private int inttterState;
+
 
     private static final String VUFORIA_KEY =
             "AYef6RP/////AAABmQhqgETT3Uq8mNFqAbjPOD990o1n/Osn3oBdTsKI0NXgPuXS612xYfN5Q65srnoMx2" +
@@ -88,12 +89,10 @@ public class redBlock extends OpMode {
             //can change mag later to find seomthing better- if want to test
             //dont change ratio
         }
-
-
         timer = new ElapsedTime();
         robot = new ChadBot();
         robot.init(hardwareMap);
-        speed = .5;
+        speed = .25;
         state = 0;
 
         robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -105,6 +104,8 @@ public class redBlock extends OpMode {
         state++;
         timer.reset();
         robot.stop();
+        robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     @Override
@@ -112,125 +113,103 @@ public class redBlock extends OpMode {
         switch (state) {
 
             case 0:
-            robot.encoder(1100, 1100, .25);
-            if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                next();
-            }
-            break;
-
-            case 1:
-                robot.encoder(630, -630, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 2:
-                robot.TheEncoder(5000, 1);
-                robot.encoder(-120, -120, .25);
-                if (!robot.getElevator().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 3:
-                robot.dumpy();
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-
-
-            case 4:
-                robot.undumpy();
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 5:
-                robot.encoder(140, 140, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 6:
-                robot.encoder(315, -315, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-            case 7:
-                robot.TheEncoder( 10, 1);
-                robot.encoder(2000, 2000, .25);
-                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
-                    next();
-                }
-                break;
-
-
-
-
-
-
-
-           /* case 0:
                 telemetry.addData(String.format("State (%d)", state), state);
-                robot.forward(speed);
-                if (timer.seconds() > .5)
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                //robot.forward(1);
+                robot.encoder(700, 700, speed);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
+                }
                 break;
 
             case 1:
-                robot.spinright();
-                if (timer.seconds() > robot.getNinety())
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                robot.counterClockwiseDuckyTurn();
+                if (timer.seconds() > 4)
                     next();
                 break;
-
             case 2:
-                robot.backward(speed);
-                if (timer.seconds() > .3)
+                //robot.forward(1);
+                robot.encoder(630, -630, .8);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
+                }
                 break;
-
             case 3:
-                robot.liftUp();
-                if (timer.seconds() > 4.5)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                telemetry.addData("elevator", robot.getElevator().getCurrentPosition());
+                robot.encoder(400, 400, speed);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
+                }
                 break;
 
             case 4:
-                robot.dumpy();
-                if (timer.seconds() > 3)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                robot.encoder(-630, 630, speed);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
-                break;
+                }
 
             case 5:
-                robot.undumpy();
-                if (timer.seconds() > 3)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                telemetry.addData("elevator", robot.getElevator().getCurrentPosition());
+                robot.TheEncoder(5000, 8);
+                robot.encoder(-500, -500, speed);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
-                break;
+                }
 
+                break;
             case 6:
-                robot.forward(speed);
-                if (timer.seconds() > .2)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                robot.dumpy();
+                if (robot.getDumper().getPosition() >= .89)
                     next();
                 break;
-
             case 7:
-                robot.spinright();
-                if (timer.seconds() > robot.getNinety()/2)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                //robot.forward(1);
+                robot.encoder(410, 410, speed);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
+                }
                 break;
 
             case 8:
-                robot.forward(speed);
-                if (timer.seconds() > 6)
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                //robot.forward(1);
+                robot.encoder(-620, 620, speed);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
-                break;*/
+                }
+                break;
 
-
+            case 9:
+                telemetry.addData(String.format("State (%d)", state), state);
+                telemetry.addData("backRight", robot.getBackRight().getCurrentPosition());
+                telemetry.addData("backLeft", robot.getBackLeft().getCurrentPosition());
+                //robot.forward(1);
+                robot.encoder(200, 200, speed);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
         }
     }
 }

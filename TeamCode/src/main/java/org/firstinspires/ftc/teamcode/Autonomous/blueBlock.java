@@ -125,6 +125,82 @@ public class blueBlock extends OpMode {
     public void loop() {
         switch (state) {
 
+
+            case 0:
+                robot.encoder(1100, 1100, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 1:
+                robot.encoder(-630, -630, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 2:
+                robot.TheEncoder(5000, 1);
+                robot.encoder(-120, -120, .25);
+                if (!robot.getElevator().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 3:
+                robot.dumpy();
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+
+
+            case 4:
+                robot.undumpy();
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 5:
+                robot.encoder(140, 140, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 6:
+                robot.encoder(315, -315, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+            case 7:
+                robot.TheEncoder( 10, 1);
+                robot.encoder(2000, 2000, .25);
+                if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
+                    next();
+                }
+                break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
             case 0:
                 telemetry.addData(String.format("State (%d)", state), state);
                 robot.forward(1);
@@ -169,7 +245,7 @@ public class blueBlock extends OpMode {
                 break;
 
             case 7:
-                robot.dumperStop();
+               // robot.dumperStop();
                 robot.forward(speed);
                 if (timer.seconds() > .2)
                     next();
@@ -186,6 +262,8 @@ public class blueBlock extends OpMode {
                 if (timer.seconds() > 6)
                     next();
                 break;
+
+ */
         }
     }
 }
