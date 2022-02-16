@@ -121,6 +121,7 @@ public class straight extends OpMode {
 
             case 2:
                 robot.stop();
+                robot.counterClockwiseDuckyTurn();
                 if(timer.seconds()>2)
                     next();
                 break;
