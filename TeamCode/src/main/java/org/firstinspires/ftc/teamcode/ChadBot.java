@@ -154,15 +154,15 @@ public class ChadBot { //this class defines all parts and functions of a robot a
     }
 
     public void dumpy() {
-        dumper.setPosition(.4);
+        dumper.setPosition(.01);
     }
 
     public void undumpy() {
-        dumper.setPosition(.9);
+        dumper.setPosition(.8);
     }
 
     public void halfDump() {
-        dumper.setPosition(.5);
+        dumper.setPosition(.4);
     }
 
 
@@ -172,18 +172,18 @@ public class ChadBot { //this class defines all parts and functions of a robot a
     }*/
 
     public void liftBot() { //bottom layer
-        elevator.setPower(1);
-        elevator.setTargetPosition(1584);
+        elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TheEncoder(800,1);
     }
 
     public void liftMid() { //middle layer
-        elevator.setPower(1);
-        elevator.setTargetPosition(4822);
+        elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TheEncoder(200,1);
     }
 
     public void liftTop() { //top layer
-        elevator.setPower(1);
-        elevator.setTargetPosition(5378);
+        elevator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TheEncoder(1200,1);
     }
 
     public void liftUp() {

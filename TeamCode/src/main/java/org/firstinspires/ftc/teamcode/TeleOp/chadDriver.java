@@ -17,6 +17,10 @@ public class chadDriver extends OpMode {
         robot.init(hardwareMap);
         //speed variable
         speed = 1;
+
+       /* robot.getBackLeft().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getBackRight().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.getElevator().setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);*/
     }
 
     public void loop() {
@@ -83,10 +87,10 @@ public class chadDriver extends OpMode {
 
 
         if (gamepad1.a) {
-            robot.impelll();//pressing -A- impels the intake to start collecting freight
+            robot.expelll();//pressing -A- impels the intake to start collecting freight
         }
         if (gamepad1.b) {
-            robot.expelll();//pressing -B- expels the intake to release collected freight
+            robot.impelll();//pressing -B- expels the intake to release collected freight
         }
         if (gamepad1.y) {
             robot.stop();//pressing -Y- stops the robot
@@ -107,7 +111,6 @@ public class chadDriver extends OpMode {
         //parts: dumper, elevator, and duck spinner
 
         if (gamepad2.dpad_left) {
-            //robot.liftMid();//left on dpad sets the lift to the middle section
         } else if (gamepad2.dpad_up) {
             robot.liftDown();//up on dpad sets the lift to the top section
         } else if (gamepad2.dpad_down) {

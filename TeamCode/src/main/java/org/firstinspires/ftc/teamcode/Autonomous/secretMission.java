@@ -118,7 +118,7 @@ public class secretMission extends OpMode {
                 telemetry.addData("backRight",robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft",robot.getBackLeft().getCurrentPosition());
                 //robot.forward(1);
-                robot.encoder(220,220);
+               // robot.encoder(220,220);
                 if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
                 }
@@ -129,7 +129,7 @@ public class secretMission extends OpMode {
                 telemetry.addData("backRight",robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft",robot.getBackLeft().getCurrentPosition());
 
-                robot.encoder(-630,630);
+               // robot.encoder(-630,630);
                 if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
                 }
@@ -140,7 +140,7 @@ public class secretMission extends OpMode {
                 telemetry.addData("backRight",robot.getBackRight().getCurrentPosition());
                 telemetry.addData("backLeft",robot.getBackLeft().getCurrentPosition());
 
-                robot.encoder(1000,1000);
+              //  robot.encoder(1000,1000);
                 if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
                 }
@@ -149,7 +149,7 @@ public class secretMission extends OpMode {
             case 3:
                 telemetry.addData(String.format("State (%d)", state), state);
                 telemetry.addData("Seconds: ", timer.seconds());
-                robot.encoder(0,0);
+             //   robot.encoder(0,0);
                 robot.counterClockwiseDuckyTurn();
                 if (timer.seconds() > 3)
                     next();

@@ -130,39 +130,37 @@ public class flowBlock extends OpMode {
                                 recognition.getRight(), recognition.getBottom());
                         i++;
                         telemetry.update();
-                        if (recognition.getLeft() <= 440) {//left postion
-                            inttterState = 1;
-                            //next();
-                        } else if (recognition.getRight() >= 470) {//right position
-                            inttterState = 200;
-                            //next();
-                        } else {//middle position
+                        if (recognition.getLeft() <= 500) {//left postion
                             inttterState = 100;
                             //next();
+                        } else if (recognition.getRight() > 500) {//right position
+                            inttterState = 200;
+                            //next();
                         }
+                        else{inttterState = 1;}
                     }
+                    state=inttterState;
                 }
-                // }
-                state=inttterState;
+                else {next();}
 
                 break;
 
-            case 1:
-                robot.encoder(-200, 200, .25);
+            case 1://right position
+                robot.encoder(200, -200, .25);
                 if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
                 }
                 break;
 
-            case 100:
+            case 100://middle position(tensorflow right)
                 robot.encoder(200, 200, .25);
                 if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
                 }
                 break;
 
-            case 200:
-                robot.encoder(200, -200, .25);
+            case 200://left position(tensorflow left)
+                robot.encoder(-200, 200, .25);
                 if (!robot.getBackLeft().isBusy() && !robot.getBackRight().isBusy()) {
                     next();
                 }
